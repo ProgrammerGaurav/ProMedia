@@ -1,0 +1,39 @@
+{% extends 'layout.html' %}
+{% block body %}
+<div class="pt-5">
+    <div class="pt-5">
+
+    </div>
+</div>
+<div class="container profile">
+    <div class="row">
+        <div class="col-12">
+            <img src="/media/{{userprofile.userimage}}" alt="" id="profilePicture" role="button" data-toggle="dropdown"
+                aria-expanded="false">
+            <ul class="dropdown-menu" aria-labelledby="profilePicture">
+                <li>
+                    <form id="form" method="POST" action="/userimageUpdate" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <input type="file" class="form-file-input d-none" id="userimage" name="image" required />
+                        <label class="dropdown-item" for="userimage">
+                            Update
+                        </label>
+                    </form>
+                </li>
+                <li>
+                    <a class="dropdown-item text-danger" href="/userimageRemove">Remove</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    {{userprofile.user.username}}
+    {{userprofile.user.email}}
+    {{userprofile.followers}}
+    {{userprofile.bio}}
+</div>
+<script>
+    document.getElementById("userimage").onchange = function () {
+        document.getElementById("form").submit();
+    };
+</script>
+{% endblock body %}

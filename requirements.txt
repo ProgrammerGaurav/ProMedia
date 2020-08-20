@@ -3,3 +3,4 @@ gunicorn
 django-heroku
 django-allauth
 django-rest-auth
+Pillow

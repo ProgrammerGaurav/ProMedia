@@ -1,8 +1,8 @@
-# ProMedia
+# ProMedia(Beta)
 ### Requirements
 ```
 - Python3
-- Djagno
+- Django
 ```
 ### Usage
 ```

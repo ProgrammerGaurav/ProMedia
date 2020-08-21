@@ -1,4 +1,4 @@
-# [ProMedia](https://proomedia.herokuapp.com)
+# [ProMedia](https://proomedia.herokuapp.com) (beta)
 
 ### Requirements
 ```

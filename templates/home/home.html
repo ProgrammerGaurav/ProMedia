@@ -1,44 +1,10 @@
 {% extends 'layout.html' %}
 {% load static %}
 {% block body  %}
-<div class="pt-5">
-    <div class="pt-5">
+<!-- Posts Start  -->
+{% include 'home/posts.html' %}
+<!-- Posts End  -->
 
-    </div>
-</div>
-<div class="container">
-    <div class="row">
-        {% for post in posts %}
-        <div class="col-12 col-md-4 col-lg-3 post">
-            <div class="card">
-                <div class="card-body">
-                    <i class="fa fa-user-circle"></i> {{request.user}}
-                    <span class="float-right">
-                        <a class="nav-link" href="#" id="postOption" role="button" data-toggle="dropdown"
-                            aria-expanded="false">
-                            <i class="fas fa-ellipsis-v float-right"></i>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="postOption">
-                            <li><a class="dropdown-item" href="/profile/{{post.user}}">Profile</a></li>
-                            {% if request.user == post.user%}
-                            <li><a class="dropdown-item text-danger" href="/delete_post/{{post.id}}">Delete</a></li>
-                            {% endif %}
-                        </ul>
-                    </span>
-
-                </div>
-                <img src="/media/{{post.image.name}}" class="card-img-top" alt="..." />
-                <div class="card-body">
-                    <h5 class="card-title">{{ post.caption }}</h5>
-                    <a href="#!" class="btn btn-primary"> <i class="fa fa-thumbs-up"></i>Like</a>
-                    <div> <small>{{post.date|timesince:time}} ago</small></div>
-                </div>
-            </div>
-
-        </div>
-        {% endfor %}
-    </div>
-</div>
 <!-- Button trigger modal -->
 <button type="button" class="btn btn-floating btn-dark addpost" data-toggle="modal" data-target="#postModal">
     +
@@ -60,9 +26,9 @@
                     <div>
                         <div class="form-outline mb-4">
                             <img class="px-3" id="blah" src="#" alt="" width="100%" height="auto" />
-                            <input type="file" class="form-file-input" id="customFile" onchange="readURL(this);"
+                            <input type="file" class="form-file-inpu d-none" id="customFile" onchange="readURL(this);"
                                 name="image" required />
-                            <label class="form-file-label" for="customFile">
+                            <label class="form-file-label postLabel" for="customFile">
                                 <span class="form-file-button postImage mx-auto">Image</span>
                             </label>
                         </div>

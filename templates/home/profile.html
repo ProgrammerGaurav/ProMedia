@@ -1,15 +1,11 @@
 {% extends 'layout.html' %}
 {% block body %}
-<div class="pt-5">
-    <div class="pt-5">
-
-    </div>
-</div>
-<div class="container profile">
+<div class="container profile mt-3">
     <div class="row">
-        <div class="col-12">
+        <div class="col-11 col-md-6 mx-auto card p-5">
             <img src="/media/{{userprofile.userimage}}" alt="" id="profilePicture" role="button" data-toggle="dropdown"
                 aria-expanded="false">
+            {% if userprofile.user == request.user %}
             <ul class="dropdown-menu" aria-labelledby="profilePicture">
                 <li>
                     <form id="form" method="POST" action="/userimageUpdate" enctype="multipart/form-data">
@@ -24,13 +20,43 @@
                     <a class="dropdown-item text-danger" href="/userimageRemove">Remove</a>
                 </li>
             </ul>
+            {% endif %}
+
+            <div class="text-center py-2">
+
+                <div class="">
+                    {{userprofile.user.username}}
+                </div>
+                <div class="py-3">
+                    {% if userprofile.user == request.user %}
+                    <a href="" class="btn btn-primary">Edit Profile</a>
+                    {% else %}
+                    <a href="" class="btn btn-primary">Follow</a>
+                    <a href="" class="btn btn-success">Messege</a>
+                    {% endif %}
+                </div>
+                <div>
+                    {{userprofile.bio}}
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{userprofile.following}} posts
+                    </div>
+                    <div class="col">
+                        {{userprofile.followers}} followers
+                    </div>
+                    <div class="col">
+                        {{userprofile.following}} following
+                    </div>
+                </div>
+                {{userprofile.bio}}
+            </div>
+
         </div>
     </div>
-    {{userprofile.user.username}}
-    {{userprofile.user.email}}
-    {{userprofile.followers}}
-    {{userprofile.bio}}
 </div>
+{% include 'home/posts.html' %}
+
 <script>
     document.getElementById("userimage").onchange = function () {
         document.getElementById("form").submit();

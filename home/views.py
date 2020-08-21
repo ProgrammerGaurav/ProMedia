@@ -23,6 +23,7 @@ def post(request):
         caption = request.POST.get('caption')
         post_object = UserPost(user=user, image=image, caption=caption)
         post_object.save()
+        messages.success(request, "Post Uploaded Sucessfully")
     return redirect("/")
 
 
@@ -45,14 +46,20 @@ def profile(request, username):
         userprofile = UserProfile(user=user)
         userprofile.save()
     userprofile = UserProfile.objects.get(user=user)
-    return render(request, 'home/profile.html', {'userprofile': userprofile})
+    posts = UserPost.objects.filter(user=user).order_by('-pk')
+    data = {
+        'userprofile': userprofile,
+        'posts': posts,
+        'time': timezone.now()
+    }
+    return render(request, 'home/profile.html', data)
 
 
 def userimageUpdate(request):
     if request.method == "POST":
         image = request.FILES['image']
         userprofile = UserProfile.objects.get(user=request.user)
-        if userprofile.userimage != "profiles/samplepost.png":
+        if str(userprofile.userimage) != "profiles/samplepost.png":
             userprofile.userimage.delete()
         userprofile.save()
         userprofile.userimage = image
@@ -62,6 +69,8 @@ def userimageUpdate(request):
 
 def userimageRemove(request):
     userprofile = UserProfile.objects.get(user=request.user)
+    if str(userprofile.userimage) != "profiles/samplepost.png":
+        userprofile.userimage.delete()
     userprofile.userimage = 'profiles/samplepost.png'
     userprofile.save()
     return redirect("/profile/" + request.user.username)

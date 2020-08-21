@@ -13,11 +13,12 @@
 </head>
 
 <body>
+    <div style="padding-bottom: 59px;"></div>
     <div class="container-fluid p-0">
         <nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
             <div class="container-lg">
                 <!-- <img src="" alt=""> -->
-                <a class="navbar-brand" href="/">ProMedia</a>
+                <a class="navbar-brand" href="/">ProoMedia</a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -37,14 +38,14 @@
                                 {{request.user}}
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Action</a></li>
+                                <li><a class="dropdown-item" href="/profile/{{request.user}}">Profile</a></li>
                                 <li><a class="dropdown-item" href="#">Another action</a></li>
                                 <li>
                                     <hr class="dropdown-divider" />
                                 </li>
                                 {% if user.is_authenticated %}
                                 <li>
-                                    <a class="dropdown-item" href="/account/logout">LogOut</a>
+                                    <a class="dropdown-item text-danger" href="/account/logout">LogOut</a>
                                 </li>
                                 {% else %}
                                 <li>
@@ -72,11 +73,12 @@
         {% endfor %}
     </section>
     <!-- msg Ends -->
+    <div style="padding-top: 58px;"></div>
     <footer class="fixed-bottom bg-light text-center text-lg-left footer">
         <!-- Copyright -->
         <div class="text-center p-3" style="background-color: rgba(0, 0, 0, 0.2);">
             © 2020 Copyright:
-            <a class="text-dark" href="/">ProMedia</a>
+            <a class="text-dark" href="/">ProoMedia</a>
         </div>
         <!-- Copyright -->
     </footer>

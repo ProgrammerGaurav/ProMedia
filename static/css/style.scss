@@ -83,6 +83,12 @@ body {
     }
 }
 
+.like {
+    i {
+        @include font-size("1.2rem");
+    }
+}
+
 @media(max-width:992px) {
     .login {
         width: 100%;

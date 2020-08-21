@@ -1,18 +1,23 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.decorators import login_required
-from .models import UserPost, UserProfile
+from .models import UserPost, UserProfile, Like
 from django.contrib.auth.models import User
 from django.utils import timezone
 from django.contrib import messages
+import json
 
 
 @login_required(login_url='/account/login')
 def home(request):
     posts = UserPost.objects.all().order_by('-pk')
+    liked_post = [post for post in posts if Like.objects.filter(
+        post=post, user=request.user)]
     data = {
         'posts': posts,
-        'time': timezone.now()
+        'time': timezone.now(),
+        'liked_post': liked_post
     }
+    print(liked_post)
     return render(request, 'home/home.html', data)
 
 
@@ -33,6 +38,22 @@ def delete_post(request, id):
     post.delete()
     messages.success(request, "Post Deleted Successfully")
     return redirect('/')
+
+
+def like_dislike_post(request, id):
+    post = UserPost.objects.get(id=id)
+    like = Like.objects.filter(post=post, user=request.user)
+    liked = False
+    if like:
+        Like.dislike(post, request.user)
+    else:
+        liked = True
+        Like.like(post, request.user)
+    data = {
+        'liked': liked
+    }
+    response = json.dumps(data)
+    return HttpResponse(response, content_type="application/json")
 
 
 def profile(request, username):

@@ -24,3 +24,21 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+class Like(models.Model):
+    user = models.ManyToManyField(User)
+    post = models.OneToOneField(UserPost, on_delete=models.CASCADE)
+
+    @classmethod
+    def like(cls, post, like_user):
+        obj, create = cls.objects.get_or_create(post=post)
+        obj.user.add(like_user)
+
+    @classmethod
+    def dislike(cls, post, dislike_user):
+        obj, create = cls.objects.get_or_create(post=post)
+        obj.user.remove(dislike_user)
+
+    def __str__(self):
+        return self.user.username

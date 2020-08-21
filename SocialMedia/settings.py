@@ -155,7 +155,7 @@ STATICFILES_DIRS = [
 ]
 STATIC_ROOT = os.path.join(BASE_DIR, 'dist')
 
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/account/profile'
 
 SITE_ID = 1
 

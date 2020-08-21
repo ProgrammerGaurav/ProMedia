@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+{% block body %}
+<div class="container h-100 d-flex align-items-center p-0">
+    <div class="card login">
+        <form method="POST" action="/account/social/signup/">
+            {% csrf_token %}
+            <!-- Email input -->
+            <div class="form-outline mb-4">
+                <input type="email" id="id_email" class="form-control" name="email" value="{{ form.email.value }}" />
+                <label class="form-label" for="id_email">Email address</label>
+            </div>
+
+            <!-- Password input -->
+            <div class="form-outline mb-4">
+                <input type="text" id="id_username" class="form-control" name="username"
+                    value="{{ form.username.value }}" />
+                <label class="form-label" for="id_username">UserName</label>
+            </div>
+            <!-- Submit button -->
+            <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+        </form>
+    </div>
+</div>
+<section class="container fixed-bottom error">
+    {% if form.errors %}
+    {% for field in form %}
+    {% for error in field.errors %}
+    <div class="alert alert-warning alert-dismissible fade-in-left show" role="alert">
+        <strong>{{ error|escape }}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endfor %}
+    {% endfor %}
+    {% for error in form.non_field_errors %}
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        <strong>{{ error|escape }}</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    {% endfor %}
+    {% endif %}
+</section>
+{% endblock body %}

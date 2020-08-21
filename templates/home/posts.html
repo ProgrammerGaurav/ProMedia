@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         {% for post in posts %}
-        <div class="col-12 post">
+        <div class="col-12 post" id="{{post.id}}">
             <div class=" col-12 col-md-6 mx-auto card">
                 <div class="card-body">
                     <i class="fa fa-user-circle"></i> {{post.user}}
@@ -13,20 +13,28 @@
                         <ul class="dropdown-menu" aria-labelledby="postOption">
                             <li><a class="dropdown-item" href="/profile/{{post.user}}">Profile</a></li>
                             {% if request.user == post.user%}
-                            <li><a class="dropdown-item text-danger" href="/delete_post/{{post.id}}">Delete</a></li>
+                            <li>
+                                <a class="dropdown-item text-danger delete" href="/delete_post/{{post.id}}"
+                                    id="{{post.id}}">Delete</a>
+                            </li>
                             {% endif %}
                         </ul>
                     </span>
-
                 </div>
                 <img src="/media/{{post.image.name}}" class="card-img-top" alt="..." />
                 <div class="card-body">
                     <h5 class="card-title">{{ post.caption }}</h5>
-                    <a href="#!" class="btn btn-primary"> <i class="fa fa-thumbs-up"></i>Like</a>
+                    <a class="btn btn-floating like text-danger" href="/like_dislike_post/{{post.id}}"
+                        id="like{{post.id}}">
+                        {% if post in liked_post %}
+                        <i class="fas fa-heart animate__animated"></i>
+                        {% else %}
+                        <i class="far fa-heart animate__animated"></i>
+                        {% endif %}
+                    </a>
                     <div> <small>{{post.date|timesince:time}} ago</small></div>
                 </div>
             </div>
-
         </div>
         {% endfor %}
     </div>

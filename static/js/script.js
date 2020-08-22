@@ -2,10 +2,14 @@ $(".delete").click(function (e) {
     var id = this.id;
     var href = this.href;
     e.preventDefault();
-    $("#" + id).fadeOut("fast");
+
     $.ajax({
         url: href,
         data: {},
+        success: function () {
+            $("#" + id).addClass("animate__fadeOutLeft");
+            $("#" + id).fadeOut("slow");
+        }
     });
 
 });
@@ -29,4 +33,29 @@ $(".like").click(function (e) {
             }
         },
     });
+});
+
+$(".follow").click(function (e) {
+    var id = this.id;
+    var href = this.href;
+    e.preventDefault();
+    $.ajax({
+        url: href,
+        data: {},
+        success: function (response) {
+            if (response.followed) {
+                $("#" + id).html("unfollow");
+                $("#" + id).removeClass("btn-outline-primary");
+                $("#" + id).addClass("btn-primary");
+                $("#" + id).addClass("animate__pulse");
+
+            } else {
+                $("#" + id).html("follow");
+                $("#" + id).addClass("btn-outline-primary");
+                $("#" + id).removeClass("btn-primary");
+                $("#" + id).removeClass("animate__pulse");
+            }
+        },
+    });
+
 });

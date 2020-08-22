@@ -89,6 +89,21 @@ body {
     }
 }
 
+#search {
+    display: block;
+    text-align: center;
+}
+
+.profilelist {
+    display: block;
+
+    img {
+        width: 70px;
+        height: 70px;
+        border-radius: 100%;
+    }
+}
+
 @media(max-width:992px) {
     .login {
         width: 100%;

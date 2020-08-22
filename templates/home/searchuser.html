@@ -1,0 +1,15 @@
+{% extends 'layout.html' %}
+
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-12 col-md-6 col-lg-4 mx-auto mt-3">
+            {% for userprofile in userprofiles %}
+            <a class="profilelist btn  p-1 m-1" href="/profile/{{userprofile.user}}">
+                <img src="/media/{{userprofile.userimage}}" alt=""> {{userprofile.user}}
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock body %}

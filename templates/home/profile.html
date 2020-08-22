@@ -31,7 +31,13 @@
                     {% if userprofile.user == request.user %}
                     <a href="" class="btn btn-primary">Edit Profile</a>
                     {% else %}
-                    <a href="" class="btn btn-primary">Follow</a>
+                    {% if is_following %}
+                    <a href="/follow_unfollow_user/{{ userprofile.user.username }}" class="btn btn-primary follow"
+                        id="user{{user.id}}">unfollow</a>
+                    {% else %}
+                    <a href="/follow_unfollow_user/{{ userprofile.user.username }}"
+                        class="btn btn-outline-primary animate__animated follow" id="user{{user.id}}">Follow</a>
+                    {% endif %}
                     <a href="" class="btn btn-success">Messege</a>
                     {% endif %}
                 </div>
@@ -40,7 +46,7 @@
                 </div>
                 <div class="row">
                     <div class="col">
-                        {{userprofile.following}} posts
+                        {{posts.count}} posts
                     </div>
                     <div class="col">
                         {{userprofile.followers}} followers

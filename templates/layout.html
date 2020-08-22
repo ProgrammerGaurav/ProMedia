@@ -25,8 +25,21 @@
                     aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
+
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto mb-2 mb-lg-0">
+
+                    <form method="POST" action="/search_user" class="d-flex input-group w-auto mx-auto" id="search">
+                        {% if user.is_authenticated %}
+                        {% csrf_token %}
+                        <input type="search" class="form-control" placeholder="Search User" aria-label="Search"
+                            name="username" required />
+                        <button class="btn btn-outline-primary" type="submit" data-ripple-color="dark">
+                            Search
+                        </button>
+                        {% endif %}
+                    </form>
+
+                    <ul class="navbar-nav mb-2 mb-lg-0">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#">Home</a>
                         </li>
@@ -40,7 +53,7 @@
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <li><a class="dropdown-item" href="/profile/{{request.user}}">Profile</a></li>
-                                <li><a class="dropdown-item" href="#">Another action</a></li>
+                                <li><a class="dropdown-item" href="/liked_post">Liked Post</a></li>
                                 <li>
                                     <hr class="dropdown-divider" />
                                 </li>

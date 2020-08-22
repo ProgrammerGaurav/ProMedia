@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
 import os
+from allauth.account.signals import user_signed_up
 
 
 class UserPost(models.Model):
@@ -41,4 +42,22 @@ class Like(models.Model):
         obj.user.remove(dislike_user)
 
     def __str__(self):
-        return self.user.username
+        return str(self.post)
+
+
+class Following(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    followed = models.ManyToManyField(User, related_name="followed")
+
+    @classmethod
+    def follow(cls, user, follow_user):
+        obj, create = cls.objects.get_or_create(user=user)
+        obj.followed.add(follow_user)
+
+    @classmethod
+    def unfollow(cls, user, unfollow_user):
+        obj, create = cls.objects.get_or_create(user=user)
+        obj.followed.remove(unfollow_user)
+
+    def __str__(self):
+        return str(self.user)

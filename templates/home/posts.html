@@ -36,6 +36,14 @@
                 </div>
             </div>
         </div>
+        {% empty %}
+        <div class="col-12 post animate__animated" id="{{post.id}}">
+            <div class=" col-12 col-md-6 mx-auto card">
+                <div class="mx-auto p-3">
+                    No Post Available
+                </div>
+            </div>
+        </div>
         {% endfor %}
     </div>
 </div>

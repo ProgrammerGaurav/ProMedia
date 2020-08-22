@@ -29,7 +29,7 @@
                 </div>
                 <div class="py-3">
                     {% if userprofile.user == request.user %}
-                    <a href="" class="btn btn-primary">Edit Profile</a>
+                    <a href="" class="btn btn-primary" data-toggle="modal" data-target="#editProfile">Edit Profile</a>
                     {% else %}
                     {% if is_following %}
                     <a href="/follow_unfollow_user/{{ userprofile.user.username }}" class="btn btn-primary follow"
@@ -38,7 +38,7 @@
                     <a href="/follow_unfollow_user/{{ userprofile.user.username }}"
                         class="btn btn-outline-primary animate__animated follow" id="user{{user.id}}">Follow</a>
                     {% endif %}
-                    <a href="" class="btn btn-success">Messege</a>
+                    <button class="btn btn-success" onclick="workinpro()">Messege</button>
                     {% endif %}
                 </div>
                 <div>
@@ -55,9 +55,47 @@
                         {{userprofile.following}} following
                     </div>
                 </div>
-                {{userprofile.bio}}
+                <a target="blank" href="https://{{userprofile.connection}}">{{userprofile.connection}}</a>
             </div>
 
+        </div>
+    </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="editProfile" tabindex="-1" aria-labelledby="editProfileLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editProfileLabel">Edit Profile</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form method="POST" action="/useredit/">
+                {% csrf_token %}
+                <div class="modal-body">
+                    <div class="form-outline mb-4">
+                        <input type="text" id="UserName" class="form-control" value="{{userprofile.user.username}}"
+                            name="username" required />
+                        <label class="form-label" for="UserName">UserName</label>
+                    </div>
+                    <div class="form-outline mb-4">
+                        <textarea class="form-control" id="bio" rows="4" name="bio">{{userprofile.bio}}</textarea>
+                        <label class="form-label" for="bio">Bio</label>
+                    </div>
+                    <div class="form-outline mb-4">
+                        <input type="text" id="Links" class="form-control" name="links" placeholder="example.com"
+                            value="{{userprofile.connection}}" />
+                        <label class="form-label" for="Links">Links</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                        Close
+                    </button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

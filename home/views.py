@@ -17,7 +17,6 @@ def home(request):
         'time': timezone.now(),
         'liked_post': liked_post
     }
-    print(posts, "heooo")
     return render(request, 'home/home.html', data)
 
 
@@ -162,10 +161,25 @@ def liked_post(request):
             posts.append(like.post)
     liked_post = [post for post in posts if Like.objects.filter(
         post=post, user=request.user)]
-    print(posts)
     data = {
         'posts': posts,
         'time': timezone.now(),
         'liked_post': liked_post
     }
     return render(request, 'home/likedpost.html', data)
+
+
+def useredit(request):
+    if request.method == "POST":
+        username = request.POST.get('username')
+        bio = request.POST.get('bio', '')
+        links = request.POST.get('links', '')
+    userprofile = UserProfile.objects.get(user=request.user)
+    user = User.objects.get(username=request.user.username)
+    user.username = username
+    user.save()
+    userprofile.user.save()
+    userprofile.bio = bio
+    userprofile.connection = links
+    userprofile.save()
+    return redirect("/profile/" + str(username))

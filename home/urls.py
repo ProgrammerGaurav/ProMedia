@@ -10,6 +10,7 @@ urlpatterns = [
     path('profile/<str:username>', views.profile),
     path('search_user', views.search_user),
     path('liked_post/', views.liked_post),
+    path('useredit/', views.useredit),
     path('userimageUpdate', views.userimageUpdate),
     path('userimageRemove', views.userimageRemove)
 ]

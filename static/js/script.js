@@ -59,3 +59,7 @@ $(".follow").click(function (e) {
     });
 
 });
+
+function workinpro() {
+    alert("Ye banane nahi aata, abhi kaam chalu hai");
+}

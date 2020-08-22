@@ -183,3 +183,7 @@ def useredit(request):
     userprofile.connection = links
     userprofile.save()
     return redirect("/profile/" + str(username))
+
+
+def postrequest(request):
+    return render(request, 'home/postrequest.html')

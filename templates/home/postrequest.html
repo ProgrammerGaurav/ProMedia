@@ -1,0 +1,76 @@
+{% extends 'layout.html' %}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <button class="btn btn-primary login_btn">Login</button>
+            <button class="btn btn-primary logout_btn">Logout</button>
+            <button class="btn btn-primary post_btn">Post</button>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script>
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+    const csrftoken = getCookie('csrftoken');
+    console.log(csrftoken);
+    $(".login_btn").click(function (response) {
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8000/api/rest-auth/login/",
+            data: {
+                "csrftoken": csrftoken,
+                "username": "admin",
+                "email": "admin@gmail.com",
+                "password": "admin"
+            },
+            dataType: "json",
+            success: function (response) {
+                console.log(response.key);
+            },
+        });
+    });
+    // ----
+    $(".logout_btn").click(function (response) {
+        $.ajax({
+            type: "GET",
+            url: "http://localhost:8000/api/rest-auth/logout/",
+            dataType: "json",
+            success: function (response) {
+                console.log(response);
+            },
+        });
+    });
+    // ----- 
+    $(".post_btn").click(function (response) {
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:8000/api/userpost/",
+            data: {
+                "user": 2,
+                "caption": "fdsa",
+                "image": "/media/post/santra.png",
+                "date": "2020-08-21T13:55:00.460243Z"
+            },
+            dataType: "json",
+            success: function (response) {
+                console.log(response);
+            },
+        });
+    });
+</script>
+{% endblock body %}

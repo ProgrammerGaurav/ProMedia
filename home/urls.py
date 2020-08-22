@@ -11,6 +11,7 @@ urlpatterns = [
     path('search_user', views.search_user),
     path('liked_post/', views.liked_post),
     path('useredit/', views.useredit),
+    path('postrequest/', views.postrequest),
     path('userimageUpdate', views.userimageUpdate),
     path('userimageRemove', views.userimageRemove)
 ]

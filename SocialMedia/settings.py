@@ -83,7 +83,6 @@ MIDDLEWARE = [
 
 CORS_ORIGIN_WHITELIST = [
     "https://proomedia.herokuapp.com",
-    "http://localhost:8080",
     "http://localhost:8000",
 ]
 

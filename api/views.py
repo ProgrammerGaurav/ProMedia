@@ -22,9 +22,19 @@ def userpost(request):
         return JsonResponse(serializer.errors, status=400)
 
 
-@login_required(login_url='/account/login')
+@csrf_exempt
 def user(request):
     if request.method == "GET":
-        user = User.objects.get(username=str(request.user))
+        try:
+            user = User.objects.get(username=str(request.user))
+        except:
+            return JsonResponse({"Logged In": False})
+        serializer = UserSerializer(user, many=False)
+        return JsonResponse(serializer.data)
+    elif request.method == "POST":
+        data = JSONParser().parse(request)
+        user = User.objects.get(username=str(data['username']))
+        user.email = data['email']
+        user.save()
         serializer = UserSerializer(user, many=False)
         return JsonResponse(serializer.data)

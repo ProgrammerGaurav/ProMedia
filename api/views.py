@@ -38,3 +38,11 @@ def user(request):
         user.save()
         serializer = UserSerializer(user, many=False)
         return JsonResponse(serializer.data)
+
+
+def userprofile(request, username):
+    if request.method == "GET":
+        user = User.objects.get(username=username)
+        userprofile = UserProfile.objects.get(user=user)
+        serializer = UserProfileSerializer(userprofile, many=False)
+        return JsonResponse(serializer.data)

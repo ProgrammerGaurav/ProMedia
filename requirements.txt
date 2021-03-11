@@ -5,3 +5,4 @@ django-allauth
 django-rest-auth
 Pillow
 django-cors-headers
+cloudinary

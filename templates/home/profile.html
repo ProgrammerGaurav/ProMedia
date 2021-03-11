@@ -3,8 +3,8 @@
 <div class="container profile mt-3">
     <div class="row">
         <div class="col-11 col-md-6 mx-auto card p-5">
-            <img src="/media/{{userprofile.userimage}}" alt="" id="profilePicture" role="button" data-toggle="dropdown"
-                aria-expanded="false">
+            <img src="https://res.cloudinary.com/di9lrcrlj/{{userprofile.userimage}}" alt="" id="profilePicture"
+                role="button" data-toggle="dropdown" aria-expanded="false">
             {% if userprofile.user == request.user %}
             <ul class="dropdown-menu" aria-labelledby="profilePicture">
                 <li>

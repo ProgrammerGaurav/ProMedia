@@ -1,3 +1,4 @@
+import cloudinary.uploader
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from .models import UserPost, UserProfile, Like, Following
@@ -33,7 +34,8 @@ def post(request):
 
 def delete_post(request, id):
     post = UserPost.objects.get(id=id)
-    post.image.delete()
+    cloudinary.uploader.destroy(
+        post.image.public_id, invalidate=True)
     post.delete()
     messages.success(request, "Post Deleted Successfully")
     return redirect('/')
@@ -137,7 +139,8 @@ def userimageUpdate(request):
         image = request.FILES['image']
         userprofile = UserProfile.objects.get(user=request.user)
         if str(userprofile.userimage) != "profiles/samplepost.png":
-            userprofile.userimage.delete()
+            cloudinary.uploader.destroy(
+                userprofile.userimage.public_id, invalidate=True)
         userprofile.save()
         userprofile.userimage = image
         userprofile.save()
@@ -146,9 +149,11 @@ def userimageUpdate(request):
 
 def userimageRemove(request):
     userprofile = UserProfile.objects.get(user=request.user)
-    if str(userprofile.userimage) != "profiles/samplepost.png":
-        userprofile.userimage.delete()
-    userprofile.userimage = 'profiles/samplepost.png'
+    if str(userprofile.userimage) != "image/upload/v1615479030/promedia/profiles/default_txpxm2.png":
+        cloudinary.uploader.destroy(
+            userprofile.userimage.public_id, invalidate=True)
+
+    userprofile.userimage = 'image/upload/v1615479030/promedia/profiles/default_txpxm2.png'
     userprofile.save()
     return redirect("/profile/" + request.user.username)
 

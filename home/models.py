@@ -2,12 +2,13 @@ from django.db import models
 from django.contrib.auth.models import User
 import os
 from allauth.account.signals import user_signed_up
+from cloudinary.models import CloudinaryField
 
 
 class UserPost(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     caption = models.CharField(max_length=20)
-    image = models.ImageField(upload_to="post/")
+    image = CloudinaryField('image', folder="promedia/post")
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -16,8 +17,8 @@ class UserPost(models.Model):
 
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
-    userimage = models.ImageField(
-        upload_to="profiles/", default="profiles/samplepost.png")
+    userimage = CloudinaryField('image', folder="promedia/profiles",
+                                default="image/upload/v1615479030/promedia/profiles/default_txpxm2.png")
     bio = models.CharField(max_length=300, blank=True)
     connection = models.CharField(max_length=100, blank=True)
     followers = models.IntegerField(default=0)

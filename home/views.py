@@ -138,7 +138,7 @@ def userimageUpdate(request):
     if request.method == "POST":
         image = request.FILES['image']
         userprofile = UserProfile.objects.get(user=request.user)
-        if str(userprofile.userimage) != "profiles/samplepost.png":
+        if str(userprofile.userimage) != "image/upload/v1615480637/promedia/profiles/defauly_qtracn.jpg":
             cloudinary.uploader.destroy(
                 userprofile.userimage.public_id, invalidate=True)
         userprofile.save()
@@ -149,11 +149,11 @@ def userimageUpdate(request):
 
 def userimageRemove(request):
     userprofile = UserProfile.objects.get(user=request.user)
-    if str(userprofile.userimage) != "image/upload/v1615479030/promedia/profiles/default_txpxm2.png":
+    if str(userprofile.userimage) != "image/upload/v1615480637/promedia/profiles/defauly_qtracn.jpg":
         cloudinary.uploader.destroy(
             userprofile.userimage.public_id, invalidate=True)
 
-    userprofile.userimage = 'image/upload/v1615479030/promedia/profiles/default_txpxm2.png'
+    userprofile.userimage = 'image/upload/v1615480637/promedia/profiles/defauly_qtracn.jpg'
     userprofile.save()
     return redirect("/profile/" + request.user.username)
 

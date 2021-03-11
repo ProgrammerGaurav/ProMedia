@@ -18,7 +18,7 @@ class UserPost(models.Model):
 class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, unique=True)
     userimage = CloudinaryField('image', folder="promedia/profiles",
-                                default="image/upload/v1615483067/promedia/profiles/defauly_kg8d7c.jpg")
+                                default="image/upload/v1615483987/promedia/profiles/defauly_wodtjs.jpg")
     bio = models.CharField(max_length=300, blank=True)
     connection = models.CharField(max_length=100, blank=True)
     followers = models.IntegerField(default=0)

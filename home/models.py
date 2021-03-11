@@ -7,7 +7,7 @@ from cloudinary.models import CloudinaryField
 
 class UserPost(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-    caption = models.CharField(max_length=20)
+    caption = models.CharField(max_length=20000)
     image = CloudinaryField('image', folder="promedia/post")
     date = models.DateTimeField(auto_now_add=True)
 
